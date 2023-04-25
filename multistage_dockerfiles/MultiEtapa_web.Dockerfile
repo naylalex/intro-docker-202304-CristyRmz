@@ -4,7 +4,7 @@ WORKDIR /web
 COPY dispatcher.go .
 RUN go build dispatcher.go
 
-FROM golang:1.20 as Etapa2
+FROM alpine as Etapa2
 RUN mkdir /web
 WORKDIR /web
 COPY --from=Etapa1 /web .
