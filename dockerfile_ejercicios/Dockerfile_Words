@@ -1,0 +1,15 @@
+FROM ubuntu
+
+RUN apt-get update
+
+RUN apt-get install maven openjdk-8-jdk --yes
+
+COPY . /words/
+
+WORKDIR /words/
+
+RUN mvn verify
+
+CMD ["java", "-Xmx8m", "-Xms8m", "-jar", "target/words.jar"]
+
+EXPOSE 8080

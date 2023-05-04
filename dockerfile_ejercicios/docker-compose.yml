@@ -1,0 +1,20 @@
+version: "3"
+services:
+  dockerdb:
+    image: postgres
+    volumes:
+      - ./words.sql:/docker-entrypoint-initdb.d/words.sql
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  web:
+    build: web
+    ports: 
+      - "80:80"
+    command: ./dispatcher
+  
+  words:
+    build: words
+    ports: 
+      - "8080:8080"
+    command: java -Xmx8m -Xms8m -jar /docker/target/words.jar
